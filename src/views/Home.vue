@@ -9,8 +9,8 @@
         </ul>
       </div>
       <div class="model">
-        <button @click="startWelfareLottery" v-bind:class="{'isActive': isWelfareYellow}">福彩双色球</button>
         <button @click="startSportsLottery" v-bind:class="{'isActive': isSportsYellow}">体彩大乐透</button>
+        <button @click="startWelfareLottery" v-bind:class="{'isActive': isWelfareYellow}">福彩双色球</button>
       </div>
     </div>
 </template>
@@ -25,12 +25,12 @@ export default {
           numRed: [],
           numBlue: [],
 
-          isWelfareYellow: true,
-          isSportsYellow: false,
+          isWelfareYellow: false,
+          isSportsYellow: true,
         };
     },
     mounted() {
-      this.startWelfareLottery();
+      this.startSportsLottery();
     },
     methods: {
       startWelfareLottery() {
