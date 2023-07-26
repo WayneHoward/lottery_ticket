@@ -1,16 +1,21 @@
 <template>
     <div class="home">
       <div class="number">
-        <ul class="ball">
+        <ul class="ball" @click="copy(numRedStr + ' ' + numBlueStr)" style="cursor: pointer;">
           <li v-for="(item, index) in numRed" :key="index">{{item | zero}}</li>
         </ul>
-        <ul>
+        <ul @click="copy" style="cursor: pointer;">
           <li v-for="(item, index) in numBlue" :key="index" class="numBlue">{{item | zero}}</li>
         </ul>
       </div>
       <div class="model">
         <button @click="startSportsLottery" v-bind:class="{'isActive': isSportsYellow}">体彩大乐透</button>
         <button @click="startWelfareLottery" v-bind:class="{'isActive': isWelfareYellow}">福彩双色球</button>
+        <div>
+          <!-- <button
+            v-clipboard:copy="numRedStr + ' ' + numBlueStr"
+          >复制</button> -->
+        </div>
       </div>
     </div>
 </template>
@@ -24,6 +29,8 @@ export default {
         return {
           numRed: [],
           numBlue: [],
+          numRedStr: '',
+          numBlueStr: '',
 
           isWelfareYellow: false,
           isSportsYellow: true,
@@ -41,6 +48,15 @@ export default {
           redRes.push(redArr[index]);
           this.numRed = redRes.sort(function(a, b){return a - b});
           redArr.splice(index, 1)
+          
+          let arr = []
+          this.numRed.forEach((item, index) => {
+            arr[index] = String(item)
+            if (arr[index] < 10) {
+              arr[index] = '0' + item
+            }
+          })
+          this.numRedStr = arr.join(' ')
         }
 
         let blueArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -50,10 +66,21 @@ export default {
           blueRes.push(blueArr[index]);
           this.numBlue = blueRes.sort(function(a, b){return a - b});
           blueArr.splice(index, 1)
+
+          let arr = []
+          this.numBlue.forEach((item, index) => {
+            arr[index] = String(item)
+            if (arr[index] < 10) {
+              arr[index] = '0' + item
+            }
+          })
+          this.numBlueStr = arr.join(' ')
         }
 
         this.isWelfareYellow = true;
         this.isSportsYellow = false;
+
+        // this.copy(this.numRedStr + ' ' + this.numBlueStr)
       }, 
 
       startSportsLottery() {
@@ -64,6 +91,15 @@ export default {
           redRes.push(redArr[index]);
           this.numRed = redRes.sort(function(a, b){return a - b});
           redArr.splice(index, 1)
+
+          let arr = []
+          this.numRed.forEach((item, index) => {
+            arr[index] = String(item)
+            if (arr[index] < 10) {
+              arr[index] = '0' + item
+            }
+          })
+          this.numRedStr = arr.join(' ')
         }
 
         let blueArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -73,10 +109,30 @@ export default {
           blueRes.push(blueArr[index]);
           this.numBlue = blueRes.sort(function(a, b){return a - b});
           blueArr.splice(index, 1)
+
+          let arr = []
+          this.numBlue.forEach((item, index) => {
+            arr[index] = String(item)
+            if (arr[index] < 10) {
+              arr[index] = '0' + item
+            }
+          })
+          this.numBlueStr = arr.join(' ')
         }
 
         this.isWelfareYellow = false;
         this.isSportsYellow = true;
+
+        // this.copy(this.numRedStr + ' ' + this.numBlueStr)
+      },
+
+      copy(str) {
+        this.$copyText(str).then(_ => {
+          this.$message({
+            type: 'success',
+            message: 'Copy success!'
+          })
+        })
       }
     },
     filters: {
@@ -87,10 +143,7 @@ export default {
           return item
         }
       }
-    },
-    components: {
-
-    },
+    }
 };
 </script>
 
