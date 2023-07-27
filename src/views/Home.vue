@@ -1,10 +1,10 @@
 <template>
     <div class="home">
       <div class="number">
-        <ul class="ball" @click="copy(numRedStr + ' ' + numBlueStr)" style="cursor: pointer;">
+        <ul class="ball" @click="copy(numRedStr + ' ' + numBlueStr + '\n' + (isSportsYellow ? '02 06 14 23 26 05 07' : '02 05 06 14 23 26 07'))" style="cursor: pointer;">
           <li v-for="(item, index) in numRed" :key="index">{{item | zero}}</li>
         </ul>
-        <ul @click="copy" style="cursor: pointer;">
+        <ul @click="copy(numRedStr + ' ' + numBlueStr + '\n' + (isSportsYellow ? '02 06 14 23 26 05 07' : '02 05 06 14 23 26 07'))" style="cursor: pointer;">
           <li v-for="(item, index) in numBlue" :key="index" class="numBlue">{{item | zero}}</li>
         </ul>
       </div>
